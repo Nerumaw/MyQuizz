@@ -1,0 +1,34 @@
+﻿@inject Points MyPts
+@inject IJSRuntime JS
+
+<h3>@MyPts.Pts</h3>
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		MyPts.Pts = await LoadPointsAsync();
+
+		MyPts.PropertyChanged += async (sender, args) =>
+		{
+			await SafePointAsync(MyPts.Pts);
+			StateHasChanged();
+		};
+	}
+
+	public async Task<int> LoadPointsAsync()
+	{
+		var pointsString = await JS.InvokeAsync<string>("localStorage.getItem", "points");
+
+		if(int.TryParse(pointsString, out int points))
+		{
+			return points;
+		}
+
+		return 0;
+	}
+
+	public async Task SafePointAsync(int points)
+	{
+		await JS.InvokeVoidAsync("localStorage.setItem", "points", points.ToString());
+	}
+}

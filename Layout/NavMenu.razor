@@ -1,0 +1,42 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">MyQuiz</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="mynav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span  aria-hidden="true">🏠</span> Home
+            </NavLink>
+        </div>
+        <div class="mynav-item px-3">
+            <NavLink class="nav-link" href="quiz/Computerspiele">
+                <span aria-hidden="true">🖥</span> Computerspiele
+            </NavLink>
+        </div>
+        <div class="mynav-item px-3">
+            <NavLink class="nav-link" href="quiz/Wunder_der_Technik">
+                <span aria-hidden="true">🧬</span> Wunder der Technik
+            </NavLink>
+        </div>
+    </nav>
+    <div class="mypoints">
+        <MyPoints />
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -1,0 +1,70 @@
+﻿.mypoints{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    h3{
+          background-color: white;
+          color: darkblue;
+          font-weight: bold;
+          padding: 20px;
+          width: 80%;
+          aspect-ratio: 1/1;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 15px 5px black;
+          flex-wrap: wrap;
+      }
+
+      h3::before{
+          content: "Punkte";
+      }
+}
+
+.mysidebar{
+    background-image: url(/peakpx.png);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 15px 5px black;
+    z-index: 2;
+}
+
+.mynav-item{
+    .nav-link
+{
+    background: linear-gradient(0deg, rgba(255,188,0,1) 0%, rgba(249,255,0,1) 50%, rgba(255,209,0,1) 100%);
+    color: black;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 0 15px 5px black;
+    padding: 0 10px;
+    
+    span{
+
+            font-size: 2em;
+        }
+}
+
+
+   
+
+
+.mymain{
+
+}
+
+.answers{
+
+}
+
+.answers-button{
+
+}
+
+.page{
+
+}

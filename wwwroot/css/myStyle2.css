@@ -1,0 +1,98 @@
+﻿.mypoints {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    h3{
+
+        background-color: white;
+        color: darkblue;
+        font-weight: bold;
+        padding: 20px;
+        width: 80%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 15px 5px black;
+        flex-wrap: wrap;
+      }
+
+h3::before {
+    content: "Punkte: ";
+}
+
+}
+
+.mysidebar {
+    background-image: url(/peakpx.jpg);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 15px 5px black;
+    z-index: 2;
+}
+
+.mynav-item .nav-link {
+    background: linear-gradient(0deg, rgba(255,188,0,1) 0%, rgba(249,255,0,1) 50%, rgba(255,209,0,1) 100%);
+    color: black;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 0 15px 5px black;
+    padding: 0 10px;
+}
+
+.mynav-item .nav-link span {
+    font-size: 2em;
+}
+
+.mymain {
+    background: linear-gradient(42deg, rgba(98,0,255,1) 0%, rgba(0,181,255,1) 35%, rgba(0,172,255,1) 76%, rgba(0,44,255,1) 100%);
+    color: white;
+    text-shadow: 0 0 15px 5px black;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.quiz-container{
+    h3{
+          width: 100%;
+          text-align: center;
+          padding: 50px;
+
+      }
+    h4 {
+        width: 100%;
+        text-align: center;
+        padding: 50px;
+    }
+}
+
+.answers {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.answer-button {
+    padding: 30px;
+}
+
+.next-question{
+    position: fixed;
+    right:  20px;
+    bottom: 20px;
+}
+
+.page, #app, html, body {
+    height: 100%;
+}

@@ -1,0 +1,119 @@
+﻿@page "/quiz/{Topic}/"
+@inject HttpClient Http
+@inject Points MyPts
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+<div class="quiz-container">
+
+	@if(currentQuestion != null)
+	{
+		<h3>@currentQuestion.QuestionText</h3>
+		@* @if (isAnswered)
+		{
+			<h4>Deine Antwort ist richtig: @currentQuestion.Answers[currentQuestion.CorrectAnswerIndex]</h4>
+		}
+		else
+		{
+			<h4>Deine Antwort ist falsch, die richtige Antwort ist: @currentQuestion.Answers[currentQuestion.CorrectAnswerIndex]</h4>
+		} *@
+
+		<div class="answers">
+			@for(int i = 0; i < currentQuestion.Answers.Count; i++)
+			{
+				int index = i;
+				<button class="answer-button @GetButtonClass(index)" 
+					@onclick="() => CheckAnswer(index)" 
+					disabled="@isAnswered">
+					@currentQuestion.Answers[i]
+				</button>
+			}
+		</div>
+
+		<button class="next-question" @onclick="LoadRandomQuestion">Nächste Frage</button>
+	}
+</div>
+
+@code{
+
+	[Parameter]
+	public string? Topic { get; set; }
+	private List<Question>? questions;
+	private Question? currentQuestion;
+	private bool isCorrect = false;
+	private bool isAnswered = false;
+	private int selectedAnswerIndex = -1;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await LoadQuestion();
+	}
+
+	private void LoadRandomQuestion()
+	{
+		if(questions != null && questions.Count > 0)
+		{
+			var random = new Random();
+			currentQuestion = questions[random.Next(questions.Count)];
+			selectedAnswerIndex = -1;
+			isAnswered = false;
+		}
+	}
+
+	private void CheckAnswer(int index)
+	{
+		selectedAnswerIndex = index;
+		isAnswered = true;
+		isCorrect = selectedAnswerIndex == currentQuestion.CorrectAnswerIndex;
+		if (isCorrect)
+		{
+			MyPts.Pts++;
+		}
+		else if(!isCorrect && MyPts.Pts > 0)
+		{
+			MyPts.Pts--;
+		}
+	}
+
+	private string GetButtonClass(int index)
+	{
+		if (!isAnswered)
+		{
+			return "btn btn-primary";
+		}
+		if (index == currentQuestion.CorrectAnswerIndex)
+		{
+			return "btn btn-success";
+		}
+		return "btn btn-danger";
+	}
+
+	private async Task LoadQuestion()
+	{
+		var json = string.Empty;
+
+		if(Topic == "Computerspiele")
+		{
+			json = await Http.GetStringAsync("sample-data/games.json");
+			questions = JsonSerializer.Deserialize<List<Question>>(json);
+		}
+		else if(Topic == "Wunder_der_Technik")
+		{
+			json = await Http.GetStringAsync("sample-data/technic.json");
+			questions = JsonSerializer.Deserialize<List<Question>>(json);
+		}
+
+		LoadRandomQuestion();
+	}
+}
+
+@code {
+	public class Question{
+		[JsonPropertyName("questionText")]
+		public string QuestionText { get; set; } = string.Empty;
+		[JsonPropertyName("answers")]
+		public List<string> Answers { get; set; } = new();
+		[JsonPropertyName("correctAnswerIndex")]
+		public int CorrectAnswerIndex { get; set; }
+	}
+}
